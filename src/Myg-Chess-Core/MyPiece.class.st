@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'color',
-		'square'
+		'square',
+		'isMove'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -129,6 +130,18 @@ MyPiece >> id [
 MyPiece >> isKing [
 	
 	^ false
+]
+
+{ #category : 'accessing' }
+MyPiece >> isMove [
+
+	^ isMove
+]
+
+{ #category : 'accessing' }
+MyPiece >> isMove: anObject [
+
+	isMove := anObject
 ]
 
 { #category : 'testing' }
