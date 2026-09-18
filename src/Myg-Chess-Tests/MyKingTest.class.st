@@ -6,6 +6,30 @@ Class {
 }
 
 { #category : 'tests' }
+MyKingTest >> testCanMoveOnlyOnNotControlSquare [
+
+	| king squares board |
+	board := MyChessBoard empty.
+	board at: 'e4' put: (king := MyKing white).
+
+	"Put an same color rook on e column"
+	board at: 'e1' put: MyRook black.
+
+	squares := king targetSquares.
+	self
+		assertCollection: squares
+		includesAll:
+			(#( d3 d4 d5 f3 f4 f5 ) collect: [ :name |
+				 board at: name ]).
+			
+	self
+		deny: (squares includes: (board at: 'e3')).
+
+	self
+		deny: (squares includes: (board at: 'e5')).
+]
+
+{ #category : 'tests' }
 MyKingTest >> testIsCheckByOpponentsRook [
 
 	| king board |
