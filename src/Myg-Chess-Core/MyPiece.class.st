@@ -179,6 +179,7 @@ MyPiece >> moveTo: aSquare [
 
 	(self legalTargetSquares includes: aSquare) ifFalse: [ ^ self ].
 
+	self isMove: True.
 	square emptyContents.
 	square := aSquare.
 	aSquare contents: self
