@@ -31,7 +31,7 @@ MyPawn >> targetSquaresLegal: aBoolean [
 
 	^ {
 		oneStep.
-		((isMove isNil or: [ isMove = false ])
+		(( isMove = false )
 			and: [ oneStep notNil
 			and: [ oneStep hasPiece not
 			and: [ twoStep notNil

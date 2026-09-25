@@ -126,6 +126,12 @@ MyPiece >> id [
 	^ 'Q'
 ]
 
+{ #category : 'initialization' }
+MyPiece >> initialize [
+    super initialize.
+    isMove := false.
+]
+
 { #category : 'testing' }
 MyPiece >> isKing [
 	
