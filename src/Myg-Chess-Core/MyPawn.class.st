@@ -6,6 +6,16 @@ Class {
 }
 
 { #category : 'accessing' }
+MyPawn >> characterMap [
+	^ Dictionary newFrom: { 
+		(Color white -> Color white) -> 'P' .
+		(Color white -> Color black) -> 'p' .
+		(Color black -> Color white) -> 'O' .
+		(Color black -> Color black) -> 'o'
+	}
+]
+
+{ #category : 'accessing' }
 MyPawn >> id [
 
 	^ 'P'
@@ -38,9 +48,8 @@ MyPawn >> moveTo: aSquare [
 ]
 
 { #category : 'rendering' }
-MyPawn >> renderPieceOn: aSquare [ 
-	
-	^ aSquare renderPawn: self
+MyPawn >> renderPieceOn: aSquare [
+	^ self characterMap at: (self color -> aSquare color)
 ]
 
 { #category : 'rendering' }

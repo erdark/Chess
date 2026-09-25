@@ -6,6 +6,16 @@ Class {
 }
 
 { #category : 'accessing' }
+MyBishop >> characterMap [
+	^ Dictionary newFrom: { 
+		(Color white -> Color white) -> 'B' .
+		(Color white -> Color black) -> 'b' .
+		(Color black -> Color white) -> 'V' .
+		(Color black -> Color black) -> 'v'
+	}
+]
+
+{ #category : 'accessing' }
 MyBishop >> id [
 	
 	^ 'B'
@@ -13,8 +23,7 @@ MyBishop >> id [
 
 { #category : 'rendering' }
 MyBishop >> renderPieceOn: aSquare [
-
-	^ aSquare renderBishop: self
+	^ self characterMap at: (self color -> aSquare color)
 ]
 
 { #category : 'rendering' }

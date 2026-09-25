@@ -6,6 +6,16 @@ Class {
 }
 
 { #category : 'accessing' }
+MyKnight >> characterMap [
+	^ Dictionary newFrom: { 
+		(Color white -> Color white) -> 'N' .
+		(Color white -> Color black) -> 'n' .
+		(Color black -> Color white) -> 'M' .
+		(Color black -> Color black) -> 'm'
+	}
+]
+
+{ #category : 'accessing' }
 MyKnight >> id [
 	
 	^ 'N'
@@ -14,7 +24,7 @@ MyKnight >> id [
 { #category : 'rendering' }
 MyKnight >> renderPieceOn: aSquare [
 
-	^ aSquare renderKnight: self
+	^ self characterMap at: (self color -> aSquare color)
 ]
 
 { #category : 'rendering' }

@@ -6,14 +6,23 @@ Class {
 }
 
 { #category : 'accessing' }
+MyRook >> characterMap [
+	^ Dictionary newFrom: { 
+		(Color white -> Color white) -> 'R' .
+		(Color white -> Color black) -> 'r' .
+		(Color black -> Color white) -> 'T' .
+		(Color black -> Color black) -> 't'
+	}
+]
+
+{ #category : 'accessing' }
 MyRook >> id [
 	^ 'R'
 ]
 
 { #category : 'rendering' }
 MyRook >> renderPieceOn: aSquare [
-
-	^ aSquare renderRook: self
+	^ self characterMap at: (self color -> aSquare color)
 ]
 
 { #category : 'rendering' }

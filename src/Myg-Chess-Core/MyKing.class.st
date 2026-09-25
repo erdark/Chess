@@ -28,6 +28,16 @@ MyKing >> basicTargetSquares [
 ]
 
 { #category : 'accessing' }
+MyKing >> characterMap [
+	^ Dictionary newFrom: { 
+		(Color white -> Color white) -> 'K' .
+		(Color white -> Color black) -> 'k' .
+		(Color black -> Color white) -> 'L' .
+		(Color black -> Color black) -> 'l'
+	}
+]
+
+{ #category : 'accessing' }
 MyKing >> id [
 	
 	^ 'K'
@@ -71,8 +81,7 @@ MyKing >> opponentPieces [
 
 { #category : 'rendering' }
 MyKing >> renderPieceOn: aSquare [
-
-	^ aSquare renderKing: self
+	^ self characterMap at: (self color -> aSquare color)
 ]
 
 { #category : 'rendering' }
