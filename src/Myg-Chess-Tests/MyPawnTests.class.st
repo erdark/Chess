@@ -14,7 +14,7 @@ MyPawnTests >> testEnPassant [
 	
 	board at: 'd7' put: (pawn2 := MyPawn black).
 	
-	pawn2 moveTo: 'd5'.
+	pawn2 moveTo: (board at: 'd5').
 	
 	squares := pawn targetSquares.
 	self

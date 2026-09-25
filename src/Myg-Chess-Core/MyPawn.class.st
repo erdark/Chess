@@ -11,6 +11,32 @@ MyPawn >> id [
 	^ 'P'
 ]
 
+{ #category : 'path commands' }
+MyPawn >> moveTo: aSquare [ 
+
+	| previousSquare distance isEnPassantCapture |
+	previousSquare := square.
+	
+	isEnPassantCapture := (aSquare file ~= previousSquare file) 
+		and: [ aSquare column ~= previousSquare column 
+		and: [ aSquare hasPiece not ] ].
+
+	super moveTo: aSquare.
+
+	isEnPassantCapture ifTrue: [
+		(self isWhite ifTrue: [ aSquare down ] ifFalse: [ aSquare up ]) emptyContents
+	].
+
+	distance := (aSquare file asciiValue - previousSquare file asciiValue) abs.
+	distance = 2 ifTrue: [
+		self board enPassantSquare: (self isWhite 
+			ifTrue: [ previousSquare up ] 
+			ifFalse: [ previousSquare down ])
+	] ifFalse: [
+		self board enPassantSquare: nil
+	].
+]
+
 { #category : 'rendering' }
 MyPawn >> renderPieceOn: aSquare [ 
 	
