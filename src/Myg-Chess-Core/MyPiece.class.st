@@ -185,7 +185,7 @@ MyPiece >> moveTo: aSquare [
 
 	(self legalTargetSquares includes: aSquare) ifFalse: [ ^ self ].
 
-	self isMove: True.
+	self isMove: true.
 	square emptyContents.
 	square := aSquare.
 	aSquare contents: self

@@ -6,6 +6,24 @@ Class {
 }
 
 { #category : 'tests' }
+MyPawnTests >> testEnPassant [
+
+	| pawn pawn2 squares board |
+	board := MyChessBoard empty.
+	board at: 'e5' put: (pawn := MyPawn white).
+	
+	board at: 'd7' put: (pawn2 := MyPawn black).
+	
+	pawn2 moveTo: 'd5'.
+	
+	squares := pawn targetSquares.
+	self
+		assertCollection: squares 
+		includesAll: 
+			(#( e6 d6 ) collect: [ :name | board at: name ])
+]
+
+{ #category : 'tests' }
 MyPawnTests >> testStartMovesTwoSquare [
 
 	| pawn squares board |
