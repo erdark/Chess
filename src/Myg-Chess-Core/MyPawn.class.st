@@ -20,7 +20,7 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	| oneStep twoStep |
+	| oneStep twoStep diagLeft diagRight targets|
 	oneStep := self isWhite
 		ifTrue: [ square up ]
 		ifFalse: [ square down ].
@@ -28,16 +28,32 @@ MyPawn >> targetSquaresLegal: aBoolean [
 	twoStep := self isWhite
 		ifTrue: [ oneStep ifNotNil: [ oneStep up ] ]
 		ifFalse: [ oneStep ifNotNil: [ oneStep down ] ].
+		
+	diagLeft := oneStep ifNotNil: [ oneStep left ].
+	diagRight := oneStep ifNotNil: [ oneStep right ].
 
-	^ {
-		oneStep.
-		(( isMove = false )
-			and: [ oneStep notNil
-			and: [ oneStep hasPiece not
+	targets := OrderedCollection new.
+
+	(oneStep notNil and: [ oneStep hasPiece not ]) ifTrue: [
+		targets add: oneStep.
+		((isMove isNil or: [ isMove = false ])
 			and: [ twoStep notNil
-			and: [ twoStep hasPiece not ] ] ]])
-			ifTrue: [ twoStep ]
-			ifFalse: [ nil ]
-		}
-		select: [ :s | s notNil and: [ s hasPiece not ] ]
+			and: [ twoStep hasPiece not ] ])
+			ifTrue: [ targets add: twoStep ]
+	].
+
+	{ diagLeft . diagRight } do: [ :diag |
+		diag ifNotNil: [
+			(diag hasPiece and: [ diag contents color ~= self color ]) ifTrue: [
+				targets add: diag.
+			].
+			(self board enPassantSquare = diag) ifTrue: [
+				targets add: diag.
+			]
+		]
+	].
+
+	^ targets select: [ :s | s notNil ]
+
+	
 ]
